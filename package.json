@@ -2,7 +2,8 @@
   "name": "swagger-schema-utils",
   "version": "1.0.0",
   "description": "Utilities for normalising and resolving complex (multi-file) Swagger schemas",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "jsnext:main": "src/index.js",
   "scripts": {
     "test": "ava **/*.spec.js **/**/*.spec.js --timeout 60s",
     "dev": "babel -w src -d dist --copy-files -s",
@@ -65,8 +66,12 @@
     ]
   },
   "dependencies": {
+    "json-refs": "^2.1.6",
     "nodent-runtime": "^3.0.3",
-    "source-map-support": "^0.4.3"
+    "ramda": "^0.22.1",
+    "source-map-support": "^0.4.3",
+    "swagger-parser": "^3.4.1",
+    "yaml-js": "^0.1.4"
   },
   "devDependencies": {
     "@everledger/js-toolchain": "EverledgerIO/js-toolchain#1.1.1",
