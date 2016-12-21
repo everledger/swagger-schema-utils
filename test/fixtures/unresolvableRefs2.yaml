@@ -1,0 +1,10 @@
+swagger: "2.0"
+info:
+  version: "1.0"
+  title: test
+paths:
+definitions:
+  refnode:
+    "$ref": "./noNode.yaml"
+  refnode2:
+    "$ref": "./noNode2.yaml"
