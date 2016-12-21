@@ -1,0 +1,95 @@
+{
+  "name": "swagger-schema-utils",
+  "version": "1.0.0",
+  "description": "Utilities for normalising and resolving complex (multi-file) Swagger schemas",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava **/*.spec.js **/**/*.spec.js --timeout 60s",
+    "dev": "babel -w src -d dist --copy-files -s",
+    "test:watch": "ava **/*.spec.js **/**/*.spec.js --watch --verbose --timeout 60s",
+    "test:cover": "nyc --reporter=lcov --reporter=html npm test && nyc report",
+    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "build": "BABEL_ENV=production babel src -d dist --copy-files -s"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/EverledgerIO/swagger-schema-utils.git"
+  },
+  "keywords": [
+    "Swagger",
+    "schema",
+    "$ref"
+  ],
+  "author": "Everledger.io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EverledgerIO/swagger-schema-utils/issues"
+  },
+  "homepage": "https://github.com/EverledgerIO/swagger-schema-utils#readme",
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "env": {
+      "development": {
+        "sourceMaps": "inline"
+      }
+    },
+    "plugins": [
+      "transform-runtime",
+      "external-helpers",
+      "transform-flow-strip-types",
+      [
+        "fast-async",
+        {
+          "env": {
+            "asyncStackTrace": true
+          },
+          "runtimePattern": null,
+          "useRuntimeModule": true
+        }
+      ]
+    ]
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit"
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js",
+      "build"
+    ]
+  },
+  "dependencies": {
+    "nodent-runtime": "^3.0.3",
+    "source-map-support": "^0.4.3"
+  },
+  "devDependencies": {
+    "@everledger/js-toolchain": "EverledgerIO/js-toolchain#1.1.1",
+    "@everledger/types": "git+ssh://git@bitbucket.org/everledger/everledger-types#1.0.0",
+    "ava": "^0.17.0",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-external-helpers": "^6.18.0",
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "eslint": "^3.7.1",
+    "eslint-config-pospi": "^1.0.3",
+    "eslint-plugin-flowtype": "^2.20.0",
+    "fast-async": "^6.1.2",
+    "npm-run-all": "^3.1.1",
+    "nyc": "^10.0.0",
+    "proxyquire": "^1.7.10",
+    "sinon": "^2.0.0-pre.3"
+  }
+}
