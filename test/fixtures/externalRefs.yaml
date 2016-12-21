@@ -1,0 +1,12 @@
+swagger: "2.0"
+info:
+  version: 1.0
+  title: test
+paths:
+definitions:
+  reader:
+    oneOf:
+    - "$ref": '#/definitions/refnode'
+    additionalProperties: false
+  refnode:
+    "$ref": "./refNode.yaml"
