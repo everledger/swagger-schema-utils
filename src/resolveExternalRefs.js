@@ -30,7 +30,19 @@ export default function(filePath: string) {
         relativeBase: path.dirname(filePath),
       };
 
-      resolveRefs(main, options).then((result) => resolve(result.resolved)).catch(reject);
+      resolveRefs(main, options).then((result) => {
+        const errs = Object.keys(result.refs).reduce((failures, ref) => {
+          const data = result.refs[ref];
+          if (data.error) {
+            failures.push({ ref, error: data.error });
+          }
+          return failures;
+        }, []);
+        if (errs.length) {
+          return reject(errs);
+        }
+        resolve(result.resolved);
+      }).catch(reject);
     });
   });
 }
