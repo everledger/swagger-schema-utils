@@ -1,6 +1,6 @@
 {
   "name": "swagger-schema-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilities for normalising and resolving complex (multi-file) Swagger schemas",
   "main": "dist/index.js",
   "jsnext:main": "src/index.js",
