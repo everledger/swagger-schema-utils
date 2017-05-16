@@ -15,45 +15,70 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var main = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var schema, expandedSchema;
+    var schema, withLocals, expandedSchema;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
+            schema = void 0;
+            _context.prev = 1;
+            _context.next = 4;
             return (0, _loadSchema2.default)(schemaPath);
 
-          case 2:
+          case 4:
             schema = _context.sent;
+            _context.next = 10;
+            break;
 
+          case 7:
+            _context.prev = 7;
+            _context.t0 = _context['catch'](1);
+
+            lazyError(_context.t0);
+
+          case 10:
             if (modelFilter) {
-              _context.next = 7;
+              _context.next = 14;
               break;
             }
 
             _fs2.default.writeFileSync(exportPath, _yamlJs2.default.dump(schema));
-            _context.next = 11;
+            _context.next = 26;
             break;
 
-          case 7:
-            _context.next = 9;
+          case 14:
+            // bring in local refs first
+            withLocals = void 0;
+            _context.prev = 15;
+            _context.next = 18;
             return (0, _jsonRefs.resolveRefs)(schema, { filter: ['local'] });
 
-          case 9:
-            expandedSchema = _context.sent.resolved;
+          case 18:
+            withLocals = _context.sent;
+            _context.next = 24;
+            break;
+
+          case 21:
+            _context.prev = 21;
+            _context.t1 = _context['catch'](15);
+
+            lazyError(_context.t1);
+
+          case 24:
+            expandedSchema = withLocals.resolved;
 
             _fs2.default.writeFileSync(exportPath, _yamlJs2.default.dump(expandedSchema.definitions[modelFilter]));
 
-          case 11:
+          case 26:
 
             console.log('Successfully exported to ' + exportPath);
 
-          case 12:
+          case 27:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this);
+    }, _callee, this, [[1, 7], [15, 21]]);
   }));
 
   return function main() {
@@ -91,6 +116,11 @@ var argv = require('yargs').usage('Usage: $0 -e [export-path] -f [model-filter] 
 var exportPath = argv.e;
 var modelFilter = argv.f;
 var schemaPath = argv.s;
+
+function lazyError(e) {
+  console.error(require('util').inspect(e, { colors: true, depth: null }));
+  process.exit(1);
+}
 
 main();
 //# sourceMappingURL=cli.js.map
