@@ -29,14 +29,30 @@ const exportPath = argv.e;
 const modelFilter = argv.f;
 const schemaPath = argv.s;
 
+function lazyError(e) {
+  console.error(require('util').inspect(e, { colors: true, depth: null }));
+  process.exit(1);
+}
+
 async function main() {
-  const schema = await loadSchema(schemaPath);
+  let schema;
+  try {
+    schema = await loadSchema(schemaPath);
+  } catch (e) {
+    lazyError(e);
+  }
 
   if (!modelFilter) {
     fs.writeFileSync(exportPath, YAML.dump(schema));
   } else {
     // bring in local refs first
-    const expandedSchema = (await resolveRefs(schema, { filter: ['local'] })).resolved;
+    let withLocals;
+    try {
+      withLocals = await resolveRefs(schema, { filter: ['local'] });
+    } catch (e) {
+      lazyError(e);
+    }
+    const expandedSchema = (withLocals).resolved;
     fs.writeFileSync(exportPath, YAML.dump(expandedSchema.definitions[modelFilter]));
   }
 
