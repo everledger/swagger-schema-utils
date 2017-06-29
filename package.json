@@ -11,7 +11,8 @@
     "test:watch": "ava **/*.spec.js **/**/*.spec.js --watch --verbose --timeout 60s",
     "test:cover": "nyc --reporter=lcov --reporter=html npm test && nyc report",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
-    "build": "BABEL_ENV=production babel src -d dist --copy-files -s"
+    "build": "BABEL_ENV=production babel src -d dist --copy-files -s",
+    "postinstall": "cp -f hooks/pre-commit.sh .git/hooks/pre-commit"
   },
   "repository": {
     "type": "git",
